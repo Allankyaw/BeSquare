@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model post {
+  post_id      Int         @id
+  post_body    String      @db.MediumText
+  created_on   DateTime    @default(now()) @db.DateTime(0)
+  is_annoymous Int         @default(0) @db.TinyInt
+  tag_id       String?     @db.VarChar(45)
+  post_like    post_like[]
+}
+
+model user {
+  user_id       Int         @id @default(autoincrement())
+  user_name     String      @db.VarChar(100)
+  user_email    String      @db.VarChar(100)
+  user_password String      @db.VarChar(100)
+  user_aboutme  String?     @db.VarChar(255)
+  is_admin      Int?        @db.TinyInt
+  post_like     post_like[]
+}
+
+model post_like {
+  user_id Int
+  post_id Int
+  post    post @relation(fields: [post_id], references: [post_id], onDelete: NoAction, onUpdate: NoAction, map: "post_id")
+  user    user @relation(fields: [user_id], references: [user_id], onDelete: NoAction, onUpdate: NoAction, map: "user_id")
+
+  @@id([user_id, post_id])
+  @@index([post_id], map: "post_id_idx")
+}
