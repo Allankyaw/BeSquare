@@ -7,10 +7,10 @@ const checkValid = require("../middleware/checkValid");
 
 // Define routes
 router.get("/users", auth, UserController.getAllUsers);
-router.get("/users/:id", UserController.getUserById);
-router.put("/users", UserController.createUser);
+router.get("/users/:id", auth, UserController.getUserById);
+router.put("/register", UserController.createUser); //register
 router.post("/users/:id", auth, UserController.updateUser);
-router.delete("/users/:id", UserController.deleteUser);
+router.delete("/users/:id", auth, UserController.deleteUser);
 router.post("/login", checkValid, login);
 // Define other routes
 

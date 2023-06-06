@@ -1,0 +1,64 @@
+// import React, { useState, useEffect } from "react";
+// import {
+//   BrowserRouter as Router,
+//   Routes,
+//   Route,
+//   Navigate,
+// } from "react-router-dom";
+// import LoginPage from "./pages/LoginPage";
+// import Logo from "./components/Logo";
+
+// const App = () => {
+//   const [accessToken, setAccessToken] = useState(null);
+
+//   useEffect(() => {
+//     const endpoint = "/api/login";
+//     const body = {
+//       user_email: "tester1@tester1.com",
+//       user_password: "password",
+//     };
+//     // Function to fetch the access token from the backend
+//     const fetchAccessToken = async () => {
+//       try {
+//         const res = await fetch(import.meta.env.VITE_SERVER + endpoint, {
+//           method: "POST",
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//           // Authorization: "Bearer " + token,
+//           body: JSON.stringify(body),
+//         });
+//         const data = await res.json();
+
+//         setAccessToken(data.accessToken);
+//       } catch (error) {
+//         console.error("Failed to fetch access token:", error);
+//       }
+//     };
+
+//     fetchAccessToken();
+//   }, []);
+
+//   return (
+//     <Router>
+//       <div className="app">
+//         <Logo />
+//         <Routes>
+//           <Route
+//             exact
+//             path="/"
+//             element={
+//               <LoginPage
+//                 setAccessToken={setAccessToken}
+//                 // isAuthenticated={isAuthenticated}
+//               />
+//             }
+//           />
+//         </Routes>
+//         {/* Add more routes for other pages/components */}
+//       </div>
+//     </Router>
+//   );
+// };
+
+// export default App;

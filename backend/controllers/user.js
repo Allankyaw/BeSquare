@@ -2,12 +2,13 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 const bcrypt = require("bcrypt");
 const { v4: uuidv4 } = require("uuid");
+const jwt = require("jsonwebtoken");
 
 const login = async (req, res) => {
   try {
     const { user_email, user_password } = req.body;
 
-    const user = await prisma.user.findUnique({
+    const user = await prisma.user.findFirst({
       where: { user_email },
     });
 
@@ -18,10 +19,7 @@ const login = async (req, res) => {
       });
     }
 
-    const passwordMatch = await bcrypt.compare(
-      user_password,
-      user.user_password
-    );
+    const passwordMatch = await bcrypt.compare(user_password, user.hash);
     if (!passwordMatch) {
       return res.status(401).json({
         status: "error",
@@ -87,11 +85,11 @@ const UserController = {
       const { user_name, user_email, user_password } = req.body;
 
       // Hash the password
-
-      // const hash = await bcrypt.hash(req.body.password, 12);
+      console.log("user_password:", user_password);
+      const hash = await bcrypt.hash(user_password, 12);
       // is using a default salt value of 12 provided by bcrypt.
-      const salt = await bcrypt.genSalt(10);
-      const hash = await bcrypt.hash(user_password, salt);
+      // const salt = await bcrypt.genSalt(10);
+      // const hash = await bcrypt.hash(user_password, salt);
       // explicitly generates a salt value using bcrypt.genSalt() with a cost factor of 10.
 
       const user = await prisma.user.create({

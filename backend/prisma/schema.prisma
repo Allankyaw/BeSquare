@@ -21,7 +21,7 @@ model post {
 model user {
   user_id       Int         @id @default(autoincrement())
   user_name     String
-  user_email    String      @unique
+  user_email    String      
   hash          String   // Add the 'hash' field
   // user_password String
   user_aboutme  String?     @default("write about yourself!")
