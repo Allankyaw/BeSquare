@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { PostController } = require("../controllers/post");
+const { auth } = require("../middleware/auth");
 
 // Define routes
 router.get("/posts", PostController.getAllposts);

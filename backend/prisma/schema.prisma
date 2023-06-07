@@ -13,8 +13,8 @@ model post {
   created_on   DateTime?   @default(now()) @db.Timestamp(0)
   is_anonymous Int?        @default(0) @db.SmallInt
   tag_id       String?
-  // user         user        @relation(fields: [user_id], references: [user_id])
-  // user_id      Int         
+  user         user        @relation(fields: [user_id], references: [user_id])
+  user_id      Int         
   // post_like    post_like[]
 }
 
