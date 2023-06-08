@@ -15,7 +15,7 @@ model post {
   tag_id       String?
   user         user        @relation(fields: [user_id], references: [user_id])
   user_id      Int         
-  // post_like    post_like[]
+  user_name    String?     
 }
 
 model user {

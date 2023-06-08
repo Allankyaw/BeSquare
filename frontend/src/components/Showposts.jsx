@@ -111,12 +111,33 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
     }
   };
 
-  const reversedPosts = [...posts].reverse();
+  // const reversedPosts = [...posts].reverse();
+
+  // const fetchUsername = async (postUserID) => {
+  //   try {
+  //     const response = await fetch(
+  //       import.meta.env.VITE_SERVER + `/api/users/${postUserID}`
+  //     );
+  //     const data = await response.json();
+  //     return data.user_name;
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  // const getUsername = async (postUserID) => {
+  //   const username = await fetchUsername(postUserID);
+  //   console.log("username", username);
+  //   if (username) {
+  //     return username;
+  //   }
+  //   return "Unknown User";
+  // };
 
   return (
     <div>
       <h2>Posts</h2>
-      {reversedPosts.map((post) => (
+      {posts.map((post) => (
         <div key={post.post_id}>
           {editingPostId === post.post_id ? (
             <div>
@@ -139,7 +160,8 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
               ) : (
                 <p>{post.post_body}</p>
               )}
-              <p>Posted by: {post.user_id}</p> {/* Display user name */}
+              <p>Posted by:{post.user_id}</p>
+              {/* <p>Posted by: {post.user_id}</p>  */}
               {post.user_id === userId && (
                 <button onClick={() => deletePost(post.post_id)}>Delete</button>
               )}

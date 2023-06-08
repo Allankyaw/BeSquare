@@ -4,7 +4,12 @@ const prisma = new PrismaClient();
 const PostController = {
   getAllposts: async (req, res) => {
     try {
-      const post = await prisma.post.findMany();
+      const post = await prisma.post.findMany({
+        orderBy: {
+          created_on: "desc", // Sorting in descending order by the "created_on" field
+        },
+      });
+
       res.json(post);
     } catch (error) {
       console.error(error);
