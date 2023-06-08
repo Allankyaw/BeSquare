@@ -44,7 +44,7 @@ const login = async (req, res) => {
       jwtid: uuidv4(),
     });
 
-    res.json({ accessToken, refreshToken });
+    res.json({ accessToken, refreshToken, payload });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Internal server error" });

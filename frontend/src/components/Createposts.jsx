@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../helpers/AuthContext";
 
-const CreatePost = ({ onPostCreated }) => {
+const CreatePost = ({ onPostCreated, userId }) => {
   const [body, setBody] = useState("");
-
+  const userContext = useContext(AuthContext);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -12,7 +13,7 @@ const CreatePost = ({ onPostCreated }) => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ post_body: body }),
+        body: JSON.stringify({ post_body: body, user_id: userContext.userId }),
       });
 
       // Handle successful post creation

@@ -126,7 +126,7 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
               <p onClick={() => startEditing(post.post_id, post.post_body)}>
                 {post.post_body}
               </p>
-              <p>Posted by: {post.user_name}</p> {/* Display user name */}
+              <p>Posted by: {post.user_id}</p> {/* Display user name */}
               <button onClick={() => deletePost(post.post_id)}>Delete</button>
             </div>
           )}

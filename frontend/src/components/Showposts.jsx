@@ -62,10 +62,9 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
     try {
       const id = parseInt(postId, 10);
       const trimmedPostBody = updatedPostBody.trim();
+
       if (trimmedPostBody === "") {
-        alert(
-          "Please enter a valid post body or delete if you want to remove this post"
-        );
+        alert("Please enter a valid post body");
         return;
       }
 
@@ -127,6 +126,7 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
               <p onClick={() => startEditing(post.post_id, post.post_body)}>
                 {post.post_body}
               </p>
+              <p>Posted by: {post.user_id}</p> {/* Display user name */}
               <button onClick={() => deletePost(post.post_id)}>Delete</button>
             </div>
           )}

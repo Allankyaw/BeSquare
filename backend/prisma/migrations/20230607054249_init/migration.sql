@@ -5,6 +5,7 @@ CREATE TABLE "post" (
     "created_on" TIMESTAMP(0) DEFAULT CURRENT_TIMESTAMP,
     "is_anonymous" SMALLINT DEFAULT 0,
     "tag_id" TEXT,
+    "user_id" INTEGER NOT NULL,
 
     CONSTRAINT "post_pkey" PRIMARY KEY ("post_id")
 );
@@ -20,3 +21,6 @@ CREATE TABLE "user" (
 
     CONSTRAINT "user_pkey" PRIMARY KEY ("user_id")
 );
+
+-- AddForeignKey
+ALTER TABLE "post" ADD CONSTRAINT "post_user_id_fkey" FOREIGN KEY ("user_id") REFERENCES "user"("user_id") ON DELETE RESTRICT ON UPDATE CASCADE;

@@ -1,32 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/Homepage";
 import RegisterPage from "./pages/RegisterPage";
 import Logo from "./components/Logo";
+import AuthContext from "./helpers/AuthContext";
+import { Navigate } from "react-router-dom";
 
 const App = () => {
-  const [accessToken, setAccessToken] = useState(null);
+  const [userId, setUserId] = useState(null);
 
   return (
     <Router>
+      userId {userId}
       <div className="app">
         <Logo />
-        <Routes>
-          <Route
-            exact
-            path="/"
-            element={
-              <LoginPage
-                setAccessToken={setAccessToken}
-                // isAuthenticated={isAuthenticated}
-              />
-            }
-          />
-          <Route path="/home" element={<HomePage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Routes>
-        {/* Add more routes for other pages/components */}
+        <AuthContext.Provider value={{ userId, setUserId }}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={userId ? <Navigate to="/home" /> : <LoginPage />}
+            />
+            <Route
+              path="/home"
+              element={userId ? <HomePage /> : <Navigate to="/" />}
+            />
+            <Route path="/register" element={<RegisterPage />} />
+            {/* Add more routes for other pages/components */}
+          </Routes>
+        </AuthContext.Provider>
       </div>
     </Router>
   );

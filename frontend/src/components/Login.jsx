@@ -1,4 +1,7 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useContext, useState } from "react";
+import AuthContext from "../helpers/AuthContext";
+// import { Navigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
@@ -6,6 +9,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
   const navigate = useNavigate();
+
+  const { setUserId } = useContext(AuthContext); // Destructure setUserId from the AuthContext
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +27,10 @@ const Login = () => {
       if (response.ok) {
         // Handle successful login
         const data = await response.json();
+        // onSuccess(data.user_id); if you want to lift instead of using useContext
         console.log(data);
+        const payload = jwt_decode(data.accessToken);
+        setUserId(payload.id); // Update the user id in the context
         navigate("/home");
         alert("Login successful");
       } else {
@@ -59,7 +67,7 @@ const Login = () => {
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button>Login</button>
       </form>
     </div>
   );

@@ -36,7 +36,7 @@ const PostController = {
       const post = await prisma.post.create({
         data: {
           post_body,
-          // user_id,
+          user_id,
         },
       });
       res.json(post);

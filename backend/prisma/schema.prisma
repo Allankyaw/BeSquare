@@ -27,7 +27,7 @@ model user {
   user_aboutme  String?     @default("write about yourself!")
   is_admin      Int?        @db.SmallInt @default(0)
   // post_like     post_like[]
-  // post          post[]
+  post          post[]
 }
 
 // model post_like {
