@@ -1,5 +1,6 @@
 import React, { useContext, useState } from "react";
 import AuthContext from "../helpers/AuthContext";
+import "./css/createPost.css";
 
 const CreatePost = ({ onPostCreated, userId }) => {
   const [body, setBody] = useState("");
@@ -30,18 +31,20 @@ const CreatePost = ({ onPostCreated, userId }) => {
   };
 
   return (
-    <div>
-      <h2>Create a New Post</h2>
+    <div className="create-post-container">
+      <h2>Share something today!</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Body:</label>
           <textarea
             value={body}
             onChange={(e) => setBody(e.target.value)}
+            className="form-control textarea-fixed"
             required
           ></textarea>
         </div>
-        <button type="submit">Create Post</button>
+        <button type="submit" className="btn btn-primary create-post-button">
+          Create Post
+        </button>
       </form>
     </div>
   );

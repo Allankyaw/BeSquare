@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../helpers/AuthContext";
+import "./css/showPost.css";
 
 const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
   const [posts, setPosts] = useState([]);
@@ -137,38 +138,68 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
   return (
     <div>
       <h2>Posts</h2>
-      {posts.map((post) => (
-        <div key={post.post_id}>
-          {editingPostId === post.post_id ? (
-            <div>
-              <textarea
-                value={updatedPostBody}
-                onChange={(e) => setUpdatedPostBody(e.target.value)}
-                style={{ height: "100px" }}
-              ></textarea>
+      <div className="posts-container">
+        {posts.map((post) => (
+          <div className="post" key={post.post_id}>
+            {editingPostId === post.post_id ? (
               <div>
-                <button onClick={() => updatePost(post.post_id)}>Save</button>
-                <button onClick={cancelEditing}>Cancel</button>
+                <textarea
+                  value={updatedPostBody}
+                  onChange={(e) => setUpdatedPostBody(e.target.value)}
+                  className="post-textarea"
+                ></textarea>
+                <div className="post-buttons">
+                  <button
+                    onClick={() => updatePost(post.post_id)}
+                    className="
+                    btn
+                    btn-danger
+                    save-post-button"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={cancelEditing}
+                    className="
+                    btn
+                    btn-danger
+                    cancel-post-button"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-            </div>
-          ) : (
-            <div>
-              {post.user_id === userId ? (
-                <p onClick={() => startEditing(post.post_id, post.post_body)}>
-                  {post.post_body}
-                </p>
-              ) : (
-                <p>{post.post_body}</p>
-              )}
-              <p>Posted by:{post.user_id}</p>
-              {/* <p>Posted by: {post.user_id}</p>  */}
-              {post.user_id === userId && (
-                <button onClick={() => deletePost(post.post_id)}>Delete</button>
-              )}
-            </div>
-          )}
-        </div>
-      ))}
+            ) : (
+              <div className="post-content">
+                {post.user_id === userId ? (
+                  <p
+                    className="editable-post"
+                    onClick={() => startEditing(post.post_id, post.post_body)}
+                  >
+                    {post.post_body}
+                  </p>
+                ) : (
+                  <p>{post.post_body}</p>
+                )}
+                <div className="post-details">
+                  <p>Posted by:{post.user_id}</p>
+                  <p> Posted on: {post.created_on}</p>
+                </div>
+                {post.user_id === userId && (
+                  <div className="post-buttons">
+                    <button
+                      onClick={() => deletePost(post.post_id)}
+                      className="btn btn-danger delete-post-button"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
