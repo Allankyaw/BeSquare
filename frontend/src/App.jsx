@@ -12,24 +12,32 @@ const App = () => {
 
   return (
     <Router>
-      userId {userId}
-      <div className="app">
-        <Logo />
-        <AuthContext.Provider value={{ userId, setUserId }}>
-          <Routes>
-            <Route
-              exact
-              path="/"
-              element={userId ? <Navigate to="/home" /> : <LoginPage />}
-            />
-            <Route
-              path="/home"
-              element={userId ? <HomePage /> : <Navigate to="/" />}
-            />
-            <Route path="/register" element={<RegisterPage />} />
-            {/* Add more routes for other pages/components */}
-          </Routes>
-        </AuthContext.Provider>
+      <div className="container ">
+        {/* userId {userId} */}
+        <div className="row">
+          <div className="container d-flex align-items-center justify-content-center">
+            <Logo />
+          </div>
+        </div>
+        <div className="row">
+          <div className="container d-flex align-items-center justify-content-center">
+            <AuthContext.Provider value={{ userId, setUserId }}>
+              <Routes>
+                <Route
+                  exact
+                  path="/"
+                  element={userId ? <Navigate to="/home" /> : <LoginPage />}
+                />
+                <Route
+                  path="/home"
+                  element={userId ? <HomePage /> : <Navigate to="/" />}
+                />
+                <Route path="/register" element={<RegisterPage />} />
+                {/* Add more routes for other pages/components */}
+              </Routes>
+            </AuthContext.Provider>
+          </div>
+        </div>
       </div>
     </Router>
   );

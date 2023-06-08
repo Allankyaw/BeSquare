@@ -3,7 +3,7 @@ import AuthContext from "../helpers/AuthContext";
 // import { Navigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-
+import "./css/login.css";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
