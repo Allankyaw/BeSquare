@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import AuthContext from "../helpers/AuthContext";
 
 const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
   const [posts, setPosts] = useState([]);
   const [editingPostId, setEditingPostId] = useState(null);
   const [updatedPostBody, setUpdatedPostBody] = useState("");
+  const { userId } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchPosts = async () => {
@@ -94,6 +96,13 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
 
         setEditingPostId(null);
         setUpdatedPostBody("");
+
+        //after you update the post here, u just fetch the whole data again and re-render by updating the states
+        const updatedResponse = await fetch(
+          import.meta.env.VITE_SERVER + "/api/posts"
+        );
+        const updatedData = await updatedResponse.json();
+        setPosts(updatedData);
       } else {
         console.error("Failed to update post:", response.status);
       }
@@ -123,11 +132,17 @@ const Showposts = ({ refreshPosts, onPostsRefreshed }) => {
             </div>
           ) : (
             <div>
-              <p onClick={() => startEditing(post.post_id, post.post_body)}>
-                {post.post_body}
-              </p>
+              {post.user_id === userId ? (
+                <p onClick={() => startEditing(post.post_id, post.post_body)}>
+                  {post.post_body}
+                </p>
+              ) : (
+                <p>{post.post_body}</p>
+              )}
               <p>Posted by: {post.user_id}</p> {/* Display user name */}
-              <button onClick={() => deletePost(post.post_id)}>Delete</button>
+              {post.user_id === userId && (
+                <button onClick={() => deletePost(post.post_id)}>Delete</button>
+              )}
             </div>
           )}
         </div>

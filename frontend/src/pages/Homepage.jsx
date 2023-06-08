@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Showposts from "../components/Showposts";
 import CreatePost from "../components/Createposts";
-import Showposts2 from "../components/Showposts2";
 
 const HomePage = () => {
   const [refreshPosts, setRefreshPosts] = useState(true);
@@ -19,7 +18,7 @@ const HomePage = () => {
   return (
     <div>
       <CreatePost onPostCreated={handlePostCreated} />
-      <Showposts2
+      <Showposts
         refreshPosts={refreshPosts}
         onPostsRefreshed={handlePostsRefreshed}
       />
